@@ -2,9 +2,9 @@ class ScrapWorker
   include Sidekiq::Worker
   sidekiq_options queue: :default, retry: 1
 
-  require 'selenium-webdriver'
-  require 'nokogiri'
-  require 'capybara'
+  # require 'selenium-webdriver'
+  # require 'nokogiri'
+  # require 'capybara'
 
   module ::Selenium::WebDriver::Remote
     class Bridge
