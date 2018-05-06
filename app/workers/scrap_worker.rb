@@ -1,5 +1,6 @@
 class ScrapWorker
   include Sidekiq::Worker
+  sidekiq_options queue: :default, retry: 1
 
   require 'selenium-webdriver'
   require 'nokogiri'
