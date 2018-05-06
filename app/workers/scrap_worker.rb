@@ -31,7 +31,7 @@ class ScrapWorker
 
       Capybara.javascript_driver = :firefox
       Capybara.configure do |config|
-        config.default_max_wait_time = 200 # seconds
+        config.default_max_wait_time = 300 # seconds
         config.default_driver = :firefox
       end
 
