@@ -1,10 +1,10 @@
 class ScrapWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :default, retry: 1
+  sidekiq_options queue: :default
 
-  # require 'selenium-webdriver'
-  # require 'nokogiri'
-  # require 'capybara'
+  require 'selenium-webdriver'
+  require 'nokogiri'
+  require 'capybara'
 
   module ::Selenium::WebDriver::Remote
     class Bridge
@@ -26,6 +26,8 @@ class ScrapWorker
         profile.proxy = Selenium::WebDriver::Proxy.new http: '199.247.13.177:31280', ssl: '199.247.13.177:31280'
         options = Selenium::WebDriver::Firefox::Options.new(profile: profile)
         options.args << '--headless'
+        options.args << '--no-sandbox'
+        # options.args << '--disable-gpu'
         Capybara::Selenium::Driver.new :firefox, options: options
       end
 
@@ -38,6 +40,7 @@ class ScrapWorker
       # Visit
       browser = Capybara.current_session
       driver = browser.driver.browser
+      # driver.manage.timeouts.page_load = 300
 
       (star_page.to_i..end_page.to_i).each do |i|
         url = "https://www.leboncoin.fr/prestations_de_services/offres/?o=#{i}&q=site%20internet&it=1"
